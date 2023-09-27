@@ -1,4 +1,3 @@
-// App.js
 import { useEffect, useState } from "react";
 import BeerCard from "./components/BeerCard";
 import { Button, Input, Spinner } from "@material-tailwind/react";
@@ -21,6 +20,7 @@ function App() {
       });
   }, []);
 
+  // Handler
   const searchHandler = () => {
     setIsLoadingSearch(true);
 
@@ -38,6 +38,12 @@ function App() {
     setIsLoadingSearch(false);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchHandler();
+    }
+  };
+
   return (
     <div className="flex flex-col items-center lg:px-32 mt-14">
       <div className="relative flex w-2/4 gap-2 mb-5">
@@ -46,6 +52,7 @@ function App() {
           label="Search"
           className="pr-20"
           onChange={(e) => setSearchBar(e.target.value)}
+          onKeyDown={handleKeyPress}
         />
         <Button
           size="sm"
