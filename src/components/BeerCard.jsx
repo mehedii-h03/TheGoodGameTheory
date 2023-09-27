@@ -1,24 +1,80 @@
-const BeerCard = (beer) => {
-    const { name, tagline, description, image_url } = beer.beer;
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Typography,
+    Avatar,
+    Tooltip,
+} from "@material-tailwind/react";
+
+const BeerCard = ({ beer }) => {
+    const { name, description, image_url } = beer;
+
     return (
-        <div className="w-full max-w-xs box-border overflow-hidden bg-white rounded-lg shadow-lg">
-            <img className="object-contain w-72 h-56" src={image_url} />
-            <div className="p-8">
-                <h2 className="block text-xl font-bold text-gray-800 mb-1">
-                    {name.length > 20 ? `${name.substring(0, 20)}...` : name}
-                </h2>
-                <p className="text-lg text-gray-950 mb-2">{tagline}</p>
-                <p className="text-sm text-gray-700" title={description}>
-                    <span className="font-semibold">Description:</span>{" "}
-                    {description.length > 120
-                        ? `${description.substring(0, 100)}...`
-                        : description}
-                </p>
-                <button className="px-3 mt-5 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring focus:ring-blue-80000 focus:ring-opacity-80">
-                    Show Details
-                </button>
-            </div>
-        </div>
+        <Card className="max-w-[24rem] overflow-hidden">
+            <CardHeader
+                floated={false}
+                shadow={false}
+                color="transparent"
+                className="m-0 rounded-none"
+            >
+                <img
+                    className="object-contain w-72 h-56 mx-auto mt-5"
+                    src={image_url}
+                    alt={name}
+                />
+            </CardHeader>
+            <CardBody>
+                {name.length > 20 ? (
+                    <Tooltip content={name}>
+                        <Typography variant="h4" color="blue-gray">
+                            {`${name.substring(0, 20)}...`}
+                        </Typography>
+                    </Tooltip>
+                ) : (
+                    <Typography variant="h4" color="blue-gray">
+                        {name}
+                    </Typography>
+                )}
+                {description.length > 120 ? (
+                    <Tooltip content={description} placement="top-end">
+                        <Typography variant="lead" color="gray" className="mt-3 font-normal">
+                            {description.substring(0, 100)}...
+                        </Typography>
+                    </Tooltip>
+                ) : (
+                    <Typography variant="lead" color="gray" className="mt-3 font-normal">
+                        {description}
+                    </Typography>
+                )}
+            </CardBody>
+            <CardFooter className="flex items-center justify-between mt-auto">
+                <div className="flex items-center -space-x-3">
+                    <Tooltip content="Natali Craig">
+                        <Avatar
+                            size="sm"
+                            variant="circular"
+                            alt="natali craig"
+                            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1061&q=80"
+                            className="border-2 border-white hover:z-10"
+                        />
+                    </Tooltip>
+                    <Tooltip content="Tania Andrew">
+                        <Avatar
+                            size="sm"
+                            variant="circular"
+                            alt="tania andrew"
+                            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                            className="border-2 border-white hover:z-10"
+                        />
+                    </Tooltip>
+                </div>
+                <a href="#" className="font-normal">
+                    Show details
+                </a>
+            </CardFooter>
+        </Card>
     );
 };
 
